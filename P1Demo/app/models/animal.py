@@ -12,4 +12,11 @@ class Animal:
 
     # TODO: getters and setters (and private vars)
 
-    # Leaving methods out of this demo
+    # Here's the __str__ method which helps us print something readble when printing animals
+    # (Instead of <app.models.animal.Animal object at 0x000001>)
+    def __str__(self):
+        return (f"Animal(Name: {self.name}, "
+                f"Species: {self.species}, "
+                f"Weight: {self.weight}kg, "
+                f"Height: {self.height}m, "
+                f"Guest Rating: {self.guest_rating}/5)")
