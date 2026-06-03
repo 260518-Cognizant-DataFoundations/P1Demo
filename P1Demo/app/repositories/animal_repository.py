@@ -11,9 +11,11 @@ animals = {
     4: Animal("Spear", "Wolf", 80, 0.8, 4.2)
 }
 
-
 # GET ALL animals
 def get_all_animals():
     return animals.values()
 
+# GET animal by ID
+def get_animal_by_id(animal_id):
+    return animals.get(animal_id, None)
 
