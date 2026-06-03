@@ -20,3 +20,7 @@ class Animal:
                 f"Weight: {self.weight}kg, "
                 f"Height: {self.height}m, "
                 f"Guest Rating: {self.guest_rating}/5)")
+
+    # We need this to print Animals from dictionaries
+    def __repr__(self):
+        return self.__str__()
