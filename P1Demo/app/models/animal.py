@@ -10,5 +10,6 @@ class Animal:
         self.height = height
         self.guest_rating = guest_rating
 
+    # TODO: getters and setters (and private vars)
 
     # Leaving methods out of this demo
