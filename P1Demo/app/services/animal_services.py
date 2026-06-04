@@ -81,10 +81,10 @@ def update_animal(animal_id, updated_animal):
     # TODO: I'm not validating ANYTHING - we've seen examples of both above
 
     # Call the repo method to update the animal - NOTE, there are 2 possible outcomes from the repo
-
     result = repo.update_animal(animal_id, updated_animal)
 
+    # NOTE: this is redundant now, but I'm leaving it. just FYI.
     if not result:
-        return f"Animal #{animal_id} not found! Try a different ID!"
+        return f"Animal with ID {animal_id} not found! Try again!"
 
     return f"Animal #{animal_id} updated: {result}"

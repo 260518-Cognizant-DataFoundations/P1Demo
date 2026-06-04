@@ -1,0 +1,56 @@
+[
+    {
+        "id":1,
+        "species":"American Robin",
+        "time_of_day":"Morning",
+        "sightings":14
+    },
+    {
+        "id":2,
+        "species":"Blue Jay",
+        "time_of_day":"Morning",
+        "sightings":9
+    },
+    {
+        "id":3,
+        "species":"Goldfinch",
+        "time_of_day":"Afternoon",
+        "sightings":21
+    },
+    {
+        "id":4,
+        "species":"Red-tailed Hawk",
+        "time_of_day":"Afternoon",
+        "sightings":4
+    },
+    {
+        "id":5,
+        "species":"Barn Swallow",
+        "time_of_day":"Evening",
+        "sightings":31
+    },
+    {
+        "id":6,
+        "species":"House Sparrow",
+        "time_of_day":"Morning",
+        "sightings":18
+    },
+    {
+        "id":8,
+        "species":"Eastern Bluebird",
+        "time_of_day":"Morning",
+        "sightings":7
+    },
+    {
+        "id":9,
+        "species":"Chimney Swift",
+        "time_of_day":"Evening",
+        "sightings":44
+    },
+    {
+        "id":10,
+        "species":"Northern Cardinal",
+        "time_of_day":"Evening",
+        "sightings":6
+    }
+]
