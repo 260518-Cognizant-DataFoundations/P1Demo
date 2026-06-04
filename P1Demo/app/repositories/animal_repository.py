@@ -19,3 +19,8 @@ def get_all_animals():
 def get_animal_by_id(animal_id):
     return animals.get(animal_id, None)
 
+# INSERT new animal
+def insert_animal(animal:Animal):
+    new_id = max(animals.keys()) + 1 # Get the highest ID and add 1 for the new ID
+    animals[new_id] = animal # Add the new animal with the ID as the key
+    return animals[new_id] # Return the created animal
