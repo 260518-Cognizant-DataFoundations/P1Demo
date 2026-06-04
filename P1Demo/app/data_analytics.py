@@ -26,4 +26,6 @@ print(df)
 # Find the average Guest Rating for all animals
 average_rating = df["Guest Rating"].mean() # thx numpy
 
+print(average_rating)
+
 # Plot the animal ratings with a mean line------------
