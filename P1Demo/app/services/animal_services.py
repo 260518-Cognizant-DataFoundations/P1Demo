@@ -73,3 +73,18 @@ def insert_animal(animal):
 
     # return a formatted message using the animal data
     return f"{inserted_animal.name} the {inserted_animal.species} has been added!"
+
+
+# Update Animal
+def update_animal(animal_id, updated_animal):
+
+    # TODO: I'm not validating ANYTHING - we've seen examples of both above
+
+    # Call the repo method to update the animal - NOTE, there are 2 possible outcomes from the repo
+
+    result = repo.update_animal(animal_id, updated_animal)
+
+    if not result:
+        return f"Animal #{animal_id} not found! Try a different ID!"
+
+    return f"Animal #{animal_id} updated: {result}"

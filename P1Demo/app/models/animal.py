@@ -24,3 +24,7 @@ class Animal:
     # We need this to print Animals from dictionaries
     def __repr__(self):
         return self.__str__()
+
+    # TODO: def validate_animal() or something...
+    # This would be a great way to encapsulate all the validation logic for animal objects
+    # So we dont have to rewrite it every time!

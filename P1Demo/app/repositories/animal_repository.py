@@ -24,3 +24,18 @@ def insert_animal(animal:Animal):
     new_id = max(animals.keys()) + 1 # Get the highest ID and add 1 for the new ID
     animals[new_id] = animal # Add the new animal with the ID as the key
     return animals[new_id] # Return the created animal
+
+# UPDATE an animal by ID
+def update_animal(animal_id, updated_animal:Animal):
+
+    # TODO: Probably better to update fields instead of complete overwrites
+    # TODO: But I'm just keeping it simple
+
+    if animal_id in animals:
+        animals[animal_id] = updated_animal
+        return animals[animal_id]
+    else:
+        return None
+
+
+# TODO: Delete animal by ID

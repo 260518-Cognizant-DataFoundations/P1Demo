@@ -17,3 +17,4 @@ except ValueError as e:
 
 print(service.insert_animal(Animal("Bubbles", "Dolphin", 150, 2.5, 4.9)))
 
+print(service.update_animal(2, Animal("PanelData", "Panda", 110, 1.1, 4.9)))
