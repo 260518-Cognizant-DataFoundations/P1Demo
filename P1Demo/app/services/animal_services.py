@@ -10,6 +10,8 @@ It serves as the bridge between what the user sees and the database
 
 # Import the repo layer so we can use their methods
 import app.repositories.animal_repository as repo
+from app.models.animal import Animal
+
 
 # Get all animals
 def get_all_animals():
@@ -44,3 +46,30 @@ def get_animal_by_id(animal_id):
         return f"Animal with ID {animal_id} not found! Try again!"
 
     return result
+
+
+# Insert Animal
+def insert_animal(animal):
+
+    # Lots we could validate here as well
+    # Realistically, we'd check every single animal field for validity
+
+    # Ensure an animal object was passed in
+    if not isinstance(animal, Animal):
+        raise TypeError("Input does not seem to be an Animal object")
+
+    # Check that species is not empty and not human
+    if not animal.species or animal.species.lower() == "human":
+        raise ValueError("Animal species cannot be empty or human!")
+
+    # Ensure that weight and height are positive numbers
+    if not isinstance(animal.weight, (int, float)) or not isinstance(animal.height, (int, float)):
+        raise TypeError("Weight and Height must be numbers!")
+    if animal.weight <= 0 or animal.height <= 0:
+        raise ValueError("Weight an Height must be positive numbers!")
+
+    # If validation checks pass, insert the new Animal!
+    inserted_animal = repo.insert_animal(animal)
+
+    # return a formatted message using the animal data
+    return f"{inserted_animal.name} the {inserted_animal.species} has been added!"
