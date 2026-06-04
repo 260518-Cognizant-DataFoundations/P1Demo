@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 # NOTE: This will be WAY less convoluted once we're working with a real SQL database
 
-# Turn the animal dict into a dict of lists, so we can make a DataFrame
+# Turn the animal dict into a dict of ID keys and standalone dicts (instead of Animal objects)
 data = {
     animal_id: {
         "Name": animal.name,
