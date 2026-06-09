@@ -13,6 +13,7 @@ def get_all_animals():
     cursor.execute("SELECT * FROM animals")
     results = cursor.fetchall()
 
+    # Take each DB record, turn it into an Animal object, and append to a list
     animals = []
     for row in results:
         animal = Animal(row[1], row[2], row[3], row[4], row[5])
@@ -21,6 +22,7 @@ def get_all_animals():
     cursor.close()
     connection.close()
 
+    # DB Result Set gets returned as a list of Animal objects!
     return animals
 
 

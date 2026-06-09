@@ -30,6 +30,8 @@ def setup():
     cursor.execute("CREATE DATABASE IF NOT EXISTS zoo")
     cursor.execute("USE zoo")
 
+    # I didn't do much for constraints here. But you should :)
+    # I also specified "PRIMARY KEY" but you don't have to.
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS animals (
             id SERIAL PRIMARY KEY,
@@ -51,10 +53,13 @@ def setup():
     """)
 
     results = cursor.fetchall()  # Store the results of the select!
+    # Print em out just for console verification
     for row in results:
         print(row)
 
-    conn.commit()
+    conn.commit() # Save the changes made to the DB
+
+    # Close the Cursor and Connection to save resources.
     cursor.close()
     conn.close()
     print("Database setup complete!")
