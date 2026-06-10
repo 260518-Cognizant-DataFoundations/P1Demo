@@ -13,23 +13,23 @@ In a real app, you'd probably just use environment variables.
 """
 import mysql.connector
 
-# Runs once in main to make the Animals table and insert a record
+# The DB setup function (called once in main)
 def setup():
-    # Connect WITHOUT a database first - we need to create one here
+    # Create/Connect to the database, then create a table
     conn = mysql.connector.connect(
         host="localhost",
         user="root",
         password="password"
     )
 
-    # Open a cursor, which allows us to execute SQL commands through the DB connection
+    # Open a cursor, which allows us to execute SQL commands via the DB Connection
     cursor = conn.cursor()
 
-    # Now we can start executing DB commands:
-
+    # Now that we have a cursor, let's create the DB, a table, and do some DML
     cursor.execute("CREATE DATABASE IF NOT EXISTS zoo")
     cursor.execute("USE zoo")
 
+    # Create the animals table (should DIRECTLY mirror the Animal Class)
     # I didn't do much for constraints here. But you should :)
     # I also specified "PRIMARY KEY" but you don't have to.
     cursor.execute("""
@@ -43,33 +43,30 @@ def setup():
         )
     """)
 
+    # Insert an animal record then select it
     cursor.execute("""
-    INSERT INTO animals (name, species, weight, height, guest_rating) VALUES
-    ('Fluffy', 'Lion', 200, 1.5, 4.5);
+    INSERT INTO animals (name, species, weight, height, guest_rating)
+    VALUES ("Fluffy", "Lion", 200, 1.5, 4.5)
     """)
 
-    cursor.execute("""
-    SELECT * FROM animals
-    """)
+    cursor.execute("SELECT * FROM animals")
 
-    results = cursor.fetchall()  # Store the results of the select!
-    # Print em out just for console verification
-    for row in results:
-        print(row)
+    # Have to store the results of a select or an error occurs
+    results = cursor.fetchall()
+    print(results)
 
-    conn.commit() # Save the changes made to the DB
-
-    # Close the Cursor and Connection to save resources.
+    # CLEAN UP! (We'll do this often). We need to save and close everything
+    conn.commit()
     cursor.close()
     conn.close()
-    print("Database setup complete!")
+    print("DB Setup Complete!")
 
 
-# Runs every time we need a DB connection in the repo layer (which is once per method)
+# The connection function (the repo layer will use this to access the DB)
 def get_connection():
     return mysql.connector.connect(
         host="localhost",
         user="root",
         password="password",
-        database="zoo"  # remove this line for DDL setup since DB may not exist yet
+        database="zoo" # WILL FAIL HERE IF YOU HAVEN'T RUN setup()
     )

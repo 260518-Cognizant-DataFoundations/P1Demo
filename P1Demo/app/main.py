@@ -5,7 +5,7 @@ import app.utils.db_connection_util as conn
 # ONE TIME SETUP: run this once to create your DB and tables
 # COMMENT THIS FUNCTION INVOCATION OUT AFTER USE
 # ==========================
-conn.setup()
+### conn.setup()
 # ==========================
 
 # I took a graphic design class in high school

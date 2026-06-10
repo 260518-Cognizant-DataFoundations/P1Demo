@@ -5,26 +5,44 @@ from app.models.animal import Animal
 import app.utils.db_connection_util as conn
 
 
-# Get all animals from DB
+# GET all from DB
 def get_all_animals():
+
+    # Connect to DB, open a cursor, execute a SELECT
     connection = conn.get_connection()
     cursor = connection.cursor()
-
     cursor.execute("SELECT * FROM animals")
-    results = cursor.fetchall()
+
+    results = cursor.fetchall() # Gets the results of the SELECT
 
     # Take each DB record, turn it into an Animal object, and append to a list
     animals = []
-    for row in results:
-        animal = Animal(row[1], row[2], row[3], row[4], row[5])
+    for record in results:
+        animal = Animal(record[1], record[2], record[3], record[4], record[5])
         animals.append(animal)
 
+    # Clean up
     cursor.close()
     connection.close()
 
-    # DB Result Set gets returned as a list of Animal objects!
+    # Return the animals!
     return animals
 
+# GET ONE animal by ID
+def get_animal_by_id(animal_id):
+
+    # Same connection syntax
+    connection = conn.get_connection()
+    cursor = connection.cursor()
+
+    # PARAMETERIZED SQL Query (it has a variable)
+    cursor.execute("SELECT * FROM animals WHERE id = %s", (animal_id,))
+    record = cursor.fetchone() # Only getting a single record
+
+    # Clean up and return!
+    cursor.close()
+    connection.close()
+    return Animal(record[1], record[2], record[3], record[4], record[5])
 
 
 
@@ -32,7 +50,6 @@ def get_all_animals():
 
 # OLD STUFF below. It all still works, but we have graduated from fake databases.
 # They're for babiessss
-
 
 # First off, a fake database - just a Python Dictionary
 # animals = {
