@@ -44,7 +44,33 @@ def get_animal_by_id(animal_id):
     connection.close()
     return Animal(record[1], record[2], record[3], record[4], record[5])
 
+# Insert Animal in the DB
+def insert_animal(animal:Animal):
 
+    # Same connection/cursor syntax
+    connection = conn.get_connection()
+    cursor = connection.cursor()
+
+    # Parameterized SQL Insert Statement
+    cursor.execute("""
+        INSERT INTO animals (name, species, weight, height, guest_rating)
+        VALUES (%s, %s, %s, %s, %s)""",
+        (animal.name, animal.species, animal.weight, animal.height, animal.guest_rating))
+
+    # We made a change to the DB - we need to commit!
+    connection.commit()
+
+    # Returning the Animal we just inserted
+    new_id = cursor.lastrowid # Get the ID of the last inserted record
+
+    # Use the new ID to select the new Animal
+    cursor.execute("SELECT * FROM animals WHERE id = %s", (new_id,))
+    record = cursor.fetchone()
+
+    # Clean up and Return the new Animal
+    cursor.close()
+    connection.close()
+    return Animal(record[1], record[2], record[3], record[4], record[5])
 
 
 
