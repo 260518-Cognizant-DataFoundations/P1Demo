@@ -72,6 +72,48 @@ def insert_animal(animal:Animal):
     connection.close()
     return Animal(record[1], record[2], record[3], record[4], record[5])
 
+# Update an existing animal by ID
+# (we'll just overwrite all fields - you can choose what fields get updated on your P1)
+def update_animal(animal_id, updated_animal:Animal):
+
+    # Connection logic
+    connection = conn.get_connection()
+    cursor = connection.cursor()
+
+    # Parameterized SQL Update Statement
+    cursor.execute("""
+        UPDATE animals 
+        SET name = %s, species = %s, weight = %s, height = %s, guest_rating = %s
+        WHERE id = %s""",
+        (updated_animal.name, updated_animal.species, updated_animal.weight,
+         updated_animal.height, updated_animal.guest_rating, animal_id))
+
+    # Commit the change
+    connection.commit()
+
+    # If no rows were updated, run this alternate logic
+    if cursor.rowcount == 0:
+        cursor.close()
+        connection.close()
+        return None
+
+    # Grab the updated animal - just use the ID you passed in!
+    cursor.execute("SELECT * FROM animals WHERE id = %s", (animal_id,))
+    record = cursor.fetchone()
+
+    # Cleanup and return logic
+    cursor.close()
+    connection.close()
+    return Animal(record[1], record[2], record[3], record[4], record[5])
+
+
+
+
+
+
+
+
+
 
 
 # OLD STUFF below. It all still works, but we have graduated from fake databases.
