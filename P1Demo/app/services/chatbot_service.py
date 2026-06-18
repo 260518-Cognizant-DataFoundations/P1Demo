@@ -28,19 +28,21 @@ def get_basic_chain():
 import app.repositories.animal_repository as repo
 animals = repo.get_all_animals()
 
-
+# Now define a new prompt that uses our animal data
 prompt2 = ChatPromptTemplate.from_messages([
     ("system", """You are a zoo employee with knowledge about the animals you work with
     You have access to a database of animals and their information.
     You ONLY respond to questions about the data, and don't make up answers.
-    Here's your data:
     
+    Here's your data:
     {animals}
     """),
     ("human", "{input}")
 ])
 
+# Make a new chain that behaves differently from the basic chain
 def get_rag_chain():
     # Make a chain that gives the LLM access to our animal data
+    # partial() lets us pre-fill the animals variable in the prompt with our animal data
     chain = prompt2.partial(animals=animals) | llm
     return chain
