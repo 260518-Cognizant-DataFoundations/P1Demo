@@ -8,6 +8,19 @@ import app.utils.db_connection_util as conn
 ### conn.setup()
 # ==========================
 
+
+# Get the chain from the service
+from app.services.chatbot_service import get_basic_chain
+chain = get_basic_chain()
+
+# Invoke the chain with some user input
+print(chain.invoke("How are you?").content)
+
+
+
+
+
+
 # I took a graphic design class in high school
 print("""
 O============================||***||=============================O

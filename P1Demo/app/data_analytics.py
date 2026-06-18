@@ -40,4 +40,3 @@ plt.axhline(y=average_rating, color="red", linestyle="--")
 plt.title("Animal Guest Ratings")
 
 plt.show()
-

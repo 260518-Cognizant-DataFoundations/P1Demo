@@ -1,5 +1,6 @@
 # You've stumbled upon the solution to the data science assignment I'm dropping on Friday
 # Since it's optional, and we won't present, I'll just paste a basic solution here
+# It may help as an example for the data science reqs in your project
 
 import pandas as pd
 import matplotlib.pyplot as plt
