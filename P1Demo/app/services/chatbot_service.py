@@ -19,3 +19,28 @@ prompt = ChatPromptTemplate.from_messages([
 def get_basic_chain():
     chain = prompt | llm
     return chain
+
+# Make a prompt + chain that answers questions about Animals in our DB-----
+# This is an example of RAG - giving the LLM access to data that it may not have been trained on
+# In this case, the data is our animal database
+
+# First, let's get the animals from the repo
+import app.repositories.animal_repository as repo
+animals = repo.get_all_animals()
+
+
+prompt2 = ChatPromptTemplate.from_messages([
+    ("system", """You are a zoo employee with knowledge about the animals you work with
+    You have access to a database of animals and their information.
+    You ONLY respond to questions about the data, and don't make up answers.
+    Here's your data:
+    
+    {animals}
+    """),
+    ("human", "{input}")
+])
+
+def get_rag_chain():
+    # Make a chain that gives the LLM access to our animal data
+    chain = prompt2.partial(animals=animals) | llm
+    return chain
