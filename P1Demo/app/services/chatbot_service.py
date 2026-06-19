@@ -20,29 +20,37 @@ def get_basic_chain():
     chain = prompt | llm
     return chain
 
-# Make a prompt + chain that answers questions about Animals in our DB-----
-# This is an example of RAG - giving the LLM access to data that it may not have been trained on
-# In this case, the data is our animal database
 
-# First, let's get the animals from the repo
+# =======================================
+
+"""
+This time, we're doing to accomplish RAG (Retrieval Augmented Generation)
+
+RAG is the practice of supplying extra data to the LLM to improve its response
+Llama3.2 is powerful but it knows nothing about our Animal data unless we supply it
+
+So, let's supply it with data so it's better equipped to answer questions about our app
+"""
+
+# First, import and select the animals from the repo
 import app.repositories.animal_repository as repo
 animals = repo.get_all_animals()
 
-# Now define a new prompt that uses our animal data
+# Now, a new prompt that supplies the animal data to the LLM
 prompt2 = ChatPromptTemplate.from_messages([
-    ("system", """You are a zoo employee with knowledge about the animals you work with
-    You have access to a database of animals and their information.
-    You ONLY respond to questions about the data, and don't make up answers.
+    ("system", """
+    You are a helpful zookeeper with knowledge about the animals in a SQL table.
+    You are a little TOO enthusiastic about animals
     
-    Here's your data:
-    {animals}
+    You are helpful, but concise and you don't answer questions that aren't about the data
+    
+    Here is your data: {animals}
     """),
     ("human", "{input}")
 ])
 
-# Make a new chain that behaves differently from the basic chain
+# Make a new chain with the new prompt
 def get_rag_chain():
-    # Make a chain that gives the LLM access to our animal data
-    # partial() lets us pre-fill the animals variable in the prompt with our animal data
+    # partial() lets us input values for the prompt variables
     chain = prompt2.partial(animals=animals) | llm
     return chain
